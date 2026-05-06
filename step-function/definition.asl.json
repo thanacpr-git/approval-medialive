@@ -1,0 +1,95 @@
+{
+  "Comment": "MediaLive Channel Turn-Off Approval Workflow",
+  "StartAt": "SendApprovalEmails",
+  "States": {
+    "SendApprovalEmails": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {
+        "FunctionName": "${SendApprovalEmailsFunctionArn}",
+        "Payload": {
+          "matchId.$": "$.matchId",
+          "matchName.$": "$.matchName",
+          "channelArn.$": "$.channelArn",
+          "channelLabel.$": "$.channelLabel",
+          "approvalEmails.$": "$.approvalEmails",
+          "initiatedBy.$": "$.initiatedBy",
+          "taskToken.$": "$$.Task.Token"
+        }
+      },
+      "TimeoutSeconds": 86400,
+      "ResultPath": "$.approvalResult",
+      "Next": "CheckAllApproved",
+      "Catch": [
+        {
+          "ErrorEquals": ["ApprovalRejected"],
+          "Next": "HandleRejection"
+        },
+        {
+          "ErrorEquals": ["States.Timeout"],
+          "Next": "HandleTimeout"
+        }
+      ]
+    },
+    "CheckAllApproved": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.approvalResult.approved",
+          "BooleanEquals": true,
+          "Next": "StopMediaLiveChannel"
+        }
+      ],
+      "Default": "HandleRejection"
+    },
+    "StopMediaLiveChannel": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${StopChannelFunctionArn}",
+        "Payload": {
+          "matchId.$": "$.matchId",
+          "matchName.$": "$.matchName",
+          "channelArn.$": "$.channelArn",
+          "channelLabel.$": "$.channelLabel",
+          "approvalEmails.$": "$.approvalEmails",
+          "initiatedBy.$": "$.initiatedBy"
+        }
+      },
+      "ResultPath": "$.stopResult",
+      "Next": "Success",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.TaskFailed"],
+          "IntervalSeconds": 30,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "HandleError"
+        }
+      ]
+    },
+    "Success": {
+      "Type": "Succeed"
+    },
+    "HandleRejection": {
+      "Type": "Fail",
+      "Error": "ApprovalRejected",
+      "Cause": "One or more approvers rejected the channel turn-off request"
+    },
+    "HandleTimeout": {
+      "Type": "Fail",
+      "Error": "ApprovalTimeout",
+      "Cause": "Approval request timed out after 24 hours"
+    },
+    "HandleError": {
+      "Type": "Fail",
+      "Error": "ChannelStopFailed",
+      "Cause": "Failed to stop MediaLive channel"
+    }
+  }
+}

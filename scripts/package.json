@@ -1,0 +1,13 @@
+{
+  "name": "approval-medialive-scripts",
+  "version": "1.0.0",
+  "description": "Admin scripts for channel management",
+  "scripts": {
+    "seed-channels": "node seed-channels.js",
+    "list-channels": "node seed-channels.js --list"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/lib-dynamodb": "^3.500.0"
+  }
+}

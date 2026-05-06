@@ -1,0 +1,8 @@
+# Copy this file to terraform.tfvars and fill in your values
+
+aws_region      = "ap-southeast-1"
+project_name    = "approval-medialive"
+environment     = "dev"
+app_url         = "https://d1234567890.cloudfront.net"
+sender_email    = "noreply@your-domain.com"
+approval_emails = "admin@your-domain.com,ops@your-domain.com"

@@ -1,0 +1,12 @@
+{
+  "name": "turnoff-lambda",
+  "version": "1.0.0",
+  "description": "Channel turn-off initiation Lambda function",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-sfn": "^3.500.0",
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/lib-dynamodb": "^3.500.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.500.0"
+  }
+}
