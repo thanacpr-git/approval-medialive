@@ -131,23 +131,6 @@ aws dynamodb put-item --table-name approval-medialive-channels-prod --region ap-
 }'
 ```
 
-## MediaLive Channels (Production — Mono)
-
-| # | Label | Channel ID | ARN |
-|---|-------|------------|-----|
-| 1 | sports1 | 3836701 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:3836701` |
-| 2 | sports2 | 2204376 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:2204376` |
-| 3 | sports3 | 2596695 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:2596695` |
-| 4 | sports4 | 3486994 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:3486994` |
-| 5 | sports5 | 6318314 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:6318314` |
-| 6 | sports6 | 5448233 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:5448233` |
-| 7 | sports7 | 4232385 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:4232385` |
-| 8 | sports8 | 818414 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:818414` |
-| 9 | sports9 | 9980109 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:9980109` |
-| 10 | sports10 | 1786878 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:1786878` |
-| 11 | sports11 | 5208395 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:5208395` |
-| 12 | sports12-4K | 4590036 | `arn:aws:medialive:ap-southeast-1:185906222397:channel:4590036` |
-
 ## Workflow
 
 1. User uploads match schedule (manual or CSV)
