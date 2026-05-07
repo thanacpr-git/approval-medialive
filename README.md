@@ -151,8 +151,8 @@ Edit `terraform/terraform.tfvars`:
 aws_region      = "ap-southeast-1"
 project_name    = "approval-medialive"
 environment     = "prod"
-sender_email    = "thanacpr@amazon.com"
-approval_emails = "thanacpr@amazon.com"
+sender_email    = "xxx@amazon.com"
+approval_emails = "xxx@amazon.com"
 ```
 
 ## Deploying to a Different AWS Account
